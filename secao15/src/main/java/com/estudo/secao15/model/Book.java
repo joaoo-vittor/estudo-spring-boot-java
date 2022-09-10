@@ -14,7 +14,7 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "books")
-public class Books implements Serializable {
+public class Book implements Serializable {
   
   private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class Books implements Serializable {
   @Column(name = "title", length = 250)
   private String title;
 
-  public Books() {}
+  public Book() {}
 
   public Long getId() {
     return id;
@@ -97,7 +97,7 @@ public class Books implements Serializable {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Books other = (Books) obj;
+    Book other = (Book) obj;
     if (author == null) {
       if (other.author != null)
         return false;

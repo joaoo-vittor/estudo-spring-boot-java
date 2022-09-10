@@ -12,7 +12,7 @@ import com.estudo.secao15.data.vo.v1.BookVO;
 import com.estudo.secao15.exceptions.RequiredObjectIsNullException;
 import com.estudo.secao15.exceptions.ResourceNotFoundException;
 import com.estudo.secao15.mapper.DozerMapper;
-import com.estudo.secao15.model.Books;
+import com.estudo.secao15.model.Book;
 import com.estudo.secao15.repositories.BookRepository;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -68,7 +68,7 @@ public class BookServices {
 
     logger.info("Creating an book");
 
-    var entity = DozerMapper.parseObject(bookVO, Books.class);
+    var entity = DozerMapper.parseObject(bookVO, Book.class);
     var vo = DozerMapper.parseObject(repository.save(entity), BookVO.class);
 
     vo.add(
