@@ -6,3 +6,5 @@ $ mvn clean package spring-boot:run -DskipTests
 -> Rodar apenas o Flyway
 $ mvn flyway:migrate
 
+-> Rodar Tests
+$ mvn test
