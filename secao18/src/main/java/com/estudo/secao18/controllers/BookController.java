@@ -23,7 +23,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/api/v1/book")
@@ -180,7 +179,7 @@ public class BookController {
       @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
     }
   )
-  public ResponseEntity<?> deleteById(@PathParam(value = "id") Long id) {
+  public ResponseEntity<?> deleteById(@PathVariable(value = "id") Long id) {
     services.delete(id);
     return ResponseEntity.noContent().build();
   }

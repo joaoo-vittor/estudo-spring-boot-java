@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
 
-@JsonPropertyOrder({"id", "first_name", "last_name", "gender", "address",})
+@JsonPropertyOrder({"id", "firstName", "lastName", "gender", "address"})
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
   
   private static final long serialVersionUID = 1L;
@@ -16,12 +16,8 @@ public class PersonVO extends RepresentationModel<PersonVO> implements Serializa
   @Mapping("id")
   private Long key;
 
-  @JsonProperty("first_name")
   private String firstName;
-
-  @JsonProperty("last_name")
   private String lastName;
-
   private String address;
   private String gender;
 

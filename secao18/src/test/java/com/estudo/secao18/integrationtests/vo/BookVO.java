@@ -1,23 +1,16 @@
-package com.estudo.secao18.data.vo.v1;
+package com.estudo.secao18.integrationtests.vo;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import org.springframework.hateoas.RepresentationModel;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.github.dozermapper.core.Mapping;
-
-@JsonPropertyOrder({ "id", "author", "launchDate", "price", "title" })
-public class BookVO extends RepresentationModel<BookVO> implements Serializable {
-
+@XmlRootElement
+public class BookVO implements Serializable {
+  
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty("id")
-  @Mapping("id")
-  private Long key;
-  
+  private Long id;
   private Date launchDate;
   private String author;
   private Double price;
@@ -25,12 +18,12 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable 
 
   public BookVO() {}
 
-  public Long getKey() {
-    return key;
+  public Long getId() {
+    return id;
   }
 
-  public void setKey(Long key) {
-    this.key = key;
+  public void setId(Long id) {
+    this.id = id;
   }
 
   public Date getLaunchDate() {
@@ -68,9 +61,9 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable 
   @Override
   public int hashCode() {
     final int prime = 31;
-    int result = super.hashCode();
+    int result = 1;
     result = prime * result + ((author == null) ? 0 : author.hashCode());
-    result = prime * result + ((key == null) ? 0 : key.hashCode());
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
     result = prime * result + ((launchDate == null) ? 0 : launchDate.hashCode());
     result = prime * result + ((price == null) ? 0 : price.hashCode());
     result = prime * result + ((title == null) ? 0 : title.hashCode());
@@ -81,7 +74,7 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable 
   public boolean equals(Object obj) {
     if (this == obj)
       return true;
-    if (!super.equals(obj))
+    if (obj == null)
       return false;
     if (getClass() != obj.getClass())
       return false;
@@ -91,10 +84,10 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable 
         return false;
     } else if (!author.equals(other.author))
       return false;
-    if (key == null) {
-      if (other.key != null)
+    if (id == null) {
+      if (other.id != null)
         return false;
-    } else if (!key.equals(other.key))
+    } else if (!id.equals(other.id))
       return false;
     if (launchDate == null) {
       if (other.launchDate != null)

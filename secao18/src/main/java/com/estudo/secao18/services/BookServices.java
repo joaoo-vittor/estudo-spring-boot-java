@@ -107,7 +107,7 @@ public class BookServices {
   }
 
   public void delete(Long id) {
-    logger.info("Delete an Book");
+    logger.info("Delete one Book with ID: " + id);
 
     var entity = repository.findById(id).orElseThrow(
       () -> new ResourceAccessException("No records found for this ID!")
