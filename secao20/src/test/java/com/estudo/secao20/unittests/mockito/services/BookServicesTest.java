@@ -157,38 +157,38 @@ public class BookServicesTest {
     services.delete(1L);
   }
 
-  @Test
-  void testFindAll() {
-    List<Book> list = input.mockEntityList();
+  // @Test
+  // void testFindAll() {
+  //   List<Book> list = input.mockEntityList();
 
-    when(repository.findAll()).thenReturn(list);
+  //   when(repository.findAll()).thenReturn(list);
 
-    var people = services.findAll();
+  //   var people = services.findAll();
 
-    assertNotNull(people);
-    assertEquals(14, people.size());
+  //   assertNotNull(people);
+  //   assertEquals(14, people.size());
 
-    for (int i = 0; i < 14; i++) {
-      var result = people.get(i);
+  //   for (int i = 0; i < 14; i++) {
+  //     var result = people.get(i);
 
-      assertNotNull(result);
-      assertNotNull(result.getKey());
-      assertNotNull(result.getLinks());
+  //     assertNotNull(result);
+  //     assertNotNull(result.getKey());
+  //     assertNotNull(result.getLinks());
 
-      assertTrue(
-        result.toString().contains(
-          String.format(
-            "links: [</api/v1/book/%d>;rel=\"self\"]", 
-            i
-          )
-        )
-      );
+  //     assertTrue(
+  //       result.toString().contains(
+  //         String.format(
+  //           "links: [</api/v1/book/%d>;rel=\"self\"]", 
+  //           i
+  //         )
+  //       )
+  //     );
       
-      assertEquals("Author Test" + i, result.getAuthor());
-      assertEquals("Title Test" + i, result.getTitle());
-      assertEquals(25D, result.getPrice());
-      assertNotNull(result.getLaunchDate());
-    }
+  //     assertEquals("Author Test" + i, result.getAuthor());
+  //     assertEquals("Title Test" + i, result.getTitle());
+  //     assertEquals(25D, result.getPrice());
+  //     assertNotNull(result.getLaunchDate());
+  //   }
 
-  }
+  // }
 }

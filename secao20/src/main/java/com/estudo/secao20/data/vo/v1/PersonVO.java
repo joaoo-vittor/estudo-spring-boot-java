@@ -2,11 +2,13 @@ package com.estudo.secao20.data.vo.v1;
 
 import java.io.Serializable;
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.github.dozermapper.core.Mapping;
 
+@Relation(collectionRelation = "persons", itemRelation = "person")
 @JsonPropertyOrder({"id", "firstName", "lastName", "gender", "address"})
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
   
