@@ -1,2 +1,4 @@
 *.zip
 .dbdata
+
+.DS_Store
