@@ -156,7 +156,7 @@ public class PersonServicesTest {
 
     services.delete(1L);
   }
-
+  /*
   @Test
   void testFindAll() {
     List<Person> list = input.mockEntityList();
@@ -191,4 +191,5 @@ public class PersonServicesTest {
     }
 
   }
+  */
 }
