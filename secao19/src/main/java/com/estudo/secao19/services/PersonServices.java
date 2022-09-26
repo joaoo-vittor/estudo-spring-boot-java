@@ -14,6 +14,8 @@ import com.estudo.secao19.mapper.DozerMapper;
 import com.estudo.secao19.model.Person;
 import com.estudo.secao19.repositories.PersonRepository;
 
+import jakarta.transaction.Transactional;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -99,6 +101,27 @@ public class PersonServices {
 
   public PersonVO findById(Long id) {
     logger.info("Finding one person!");
+
+    var entity = repository.findById(id).orElseThrow(
+      () -> new ResourceNotFoundException("No records found for this ID!")
+    );
+  
+    var vo = DozerMapper.parseObject(entity, PersonVO.class);
+    
+    vo.add(
+      linkTo(
+        methodOn(PersonController.class).findById(id)
+      ).withSelfRel()
+    );
+
+    return vo;
+  }
+
+  @Transactional // ACID (database) - de ser empregado!
+  public PersonVO disablePerson(Long id) {
+    logger.info("Disabling one person by ID " + id);
+    
+    repository.disablePerson(id);
 
     var entity = repository.findById(id).orElseThrow(
       () -> new ResourceNotFoundException("No records found for this ID!")
