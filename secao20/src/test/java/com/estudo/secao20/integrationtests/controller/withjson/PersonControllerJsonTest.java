@@ -4,8 +4,6 @@ import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -18,8 +16,8 @@ import com.estudo.secao20.integrationtests.testcontainers.AbstractIntegrationTes
 import com.estudo.secao20.integrationtests.vo.AccountCredentialsVO;
 import com.estudo.secao20.integrationtests.vo.PersonVO;
 import com.estudo.secao20.integrationtests.vo.TokenVO;
+import com.estudo.secao20.integrationtests.vo.wrappers.WrapperPersonVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -248,6 +246,14 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 			given()
         .spec(specification)
         .contentType(TestConfigs.CONTENT_TYPE_JSON)
+        .queryParams(
+          "page",
+          1, 
+          "size", 
+          4,
+          "direction",
+          "asc"
+        )
           .when()
             .get()
 				.then()
@@ -256,10 +262,12 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
               .body()
                 .asString();
 		
-    List<PersonVO> people = objectMapper.readValue(
+    WrapperPersonVO wrapper = objectMapper.readValue(
       content, 
-      new TypeReference<List<PersonVO>>() {}
+      WrapperPersonVO.class
     );
+
+    var people = wrapper.getEmbedded().getPerson();
 
     PersonVO foundPersonOne = people.get(0);
 
@@ -270,14 +278,14 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     assertNotNull(foundPersonOne.getLastName());
     assertNotNull(foundPersonOne.getGender());
     assertNotNull(foundPersonOne.getId());
-    assertTrue(foundPersonOne.getEnabled());
+    assertFalse(foundPersonOne.getEnabled());
 
-		assertEquals(1, foundPersonOne.getId());
+		assertEquals(986, foundPersonOne.getId());
 
-    assertEquals("Campina grande", foundPersonOne.getAddress());
-    assertEquals("joao vitor", foundPersonOne.getFirstName());
-    assertEquals("silva", foundPersonOne.getLastName());
-    assertEquals("Male", foundPersonOne.getGender());
+    assertEquals("56 Bellgrove Lane", foundPersonOne.getAddress());
+    assertEquals("Abby", foundPersonOne.getFirstName());
+    assertEquals("Romagnosi", foundPersonOne.getLastName());
+    assertEquals("Female", foundPersonOne.getGender());
   }
 
   @Test
