@@ -19,8 +19,8 @@ import com.estudo.secao20.data.vo.v1.security.TokenVO;
 import com.estudo.secao20.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.estudo.secao20.integrationtests.vo.AccountCredentialsVO;
 import com.estudo.secao20.integrationtests.vo.BookVO;
+import com.estudo.secao20.integrationtests.vo.wrappers.WrapperBookVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -177,6 +177,7 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
   @Test
   @Order(6)
   public void testFindAll() throws JsonMappingException, JsonProcessingException {
+    
     var content = given().spec(specification)
       .contentType(TestConfigs.CONTENT_TYPE_JSON)
         .when()
@@ -187,10 +188,11 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
           .body()
             .asString();
 
-    List<BookVO> books = objectMapper.readValue(
+    WrapperBookVO wrapper = objectMapper.readValue(
       content, 
-      new TypeReference<List<BookVO>>() {}
+      WrapperBookVO.class
     );
+    List<BookVO> books = wrapper.getEmbedded().getBooks();
 
     BookVO foundBookOne = books.get(0);
 
@@ -198,10 +200,10 @@ public class BookControllerJsonTest extends AbstractIntegrationTest {
     assertNotNull(foundBookOne.getTitle());
     assertNotNull(foundBookOne.getAuthor());
     assertNotNull(foundBookOne.getPrice());
-    assertEquals(1, foundBookOne.getId());
-    assertEquals("Working effectively with legacy code", foundBookOne.getTitle());
-    assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
-    assertEquals(49.00, foundBookOne.getPrice());
+    assertEquals(12, foundBookOne.getId());
+    assertEquals("Big Data: como extrair volume, variedade, velocidade e valor da avalanche de informação cotidiana", foundBookOne.getTitle());
+    assertEquals("Viktor Mayer-Schonberger e Kenneth Kukier", foundBookOne.getAuthor());
+    assertEquals(54.00, foundBookOne.getPrice());
   }
 
   private void mockBook() {

@@ -3,7 +3,6 @@ package com.estudo.secao20.integrationtests.controller.withyaml;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +19,7 @@ import com.estudo.secao20.integrationtests.controller.withyaml.mapper.YAMLMapper
 import com.estudo.secao20.integrationtests.testcontainers.AbstractIntegrationTest;
 import com.estudo.secao20.integrationtests.vo.AccountCredentialsVO;
 import com.estudo.secao20.integrationtests.vo.BookVO;
+import com.estudo.secao20.integrationtests.vo.pagedmodels.PagedModelBook;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -214,7 +214,7 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
   @Test
   @Order(6)
   public void testFindAll() throws JsonMappingException, JsonProcessingException {
-    var content = given().spec(specification)
+    var response = given().spec(specification)
       .contentType(TestConfigs.CONTENT_TYPE_YAML)
       .accept(TestConfigs.CONTENT_TYPE_YAML)
         .when()
@@ -223,20 +223,20 @@ public class BookControllerYamlTest extends AbstractIntegrationTest {
         .statusCode(200)
           .extract()
           .body()
-            .as(BookVO[].class, objectMapper);
+            .as(PagedModelBook.class, objectMapper);
 
-    List<BookVO> books = Arrays.asList(content);
+    List<BookVO> content = response.getContent();
 
-    BookVO foundBookOne = books.get(0);
+    BookVO foundBookOne = content.get(0);
 
     assertNotNull(foundBookOne.getId());
     assertNotNull(foundBookOne.getTitle());
     assertNotNull(foundBookOne.getAuthor());
     assertNotNull(foundBookOne.getPrice());
-    assertEquals(1, foundBookOne.getId());
-    assertEquals("Working effectively with legacy code", foundBookOne.getTitle());
-    assertEquals("Michael C. Feathers", foundBookOne.getAuthor());
-    assertEquals(49.00, foundBookOne.getPrice());
+    assertEquals(12, foundBookOne.getId());
+    assertEquals("Big Data: como extrair volume, variedade, velocidade e valor da avalanche de informação cotidiana", foundBookOne.getTitle());
+    assertEquals("Viktor Mayer-Schonberger e Kenneth Kukier", foundBookOne.getAuthor());
+    assertEquals(54.00, foundBookOne.getPrice());
   }
 
   private void mockBook() {
