@@ -1,0 +1,15 @@
+version: '3.8'
+
+services: 
+
+  db:
+    image: mysql:8.0.30
+    restart: always
+    environment: 
+      MYSQL_DATABASE: estudo_spring
+      MYSQL_ROOT_PASSWORD: root
+    volumes: 
+      - .dbdata:/var/lib/mysql
+    ports: 
+      - 3307:3306
+    
