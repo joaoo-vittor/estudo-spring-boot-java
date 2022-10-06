@@ -360,6 +360,44 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     assertEquals("Male", foundPersonOne.getGender());
   }
 
+
+  @Test
+  @Order(9)
+	public void testHATEOAS() throws JsonMappingException, JsonProcessingException {
+
+    var content =
+			given()
+        .spec(specification)
+        .contentType(TestConfigs.CONTENT_TYPE_JSON)
+        .queryParams(
+          "page",
+          1, 
+          "size", 
+          4,
+          "direction",
+          "asc"
+        )
+          .when()
+            .get()
+				.then()
+          .statusCode(200)
+            .extract()
+              .body()
+                .asString();
+
+    assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/v1/person/986\"}}},"));
+    assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/v1/person/688\"}}},"));
+    assertTrue(content.contains("\"_links\":{\"self\":{\"href\":\"http://localhost:8888/api/v1/person/725\"}}},"));
+    
+    assertTrue(content.contains("\"last\":{\"href\":\"http://localhost:8888/api/v1/person?direction=asc&page=250&size=4&sort=firstName,asc\"}}"));
+    assertTrue(content.contains("\"next\":{\"href\":\"http://localhost:8888/api/v1/person?direction=asc&page=2&size=4&sort=firstName,asc\"}"));
+    assertTrue(content.contains("\"self\":{\"href\":\"http://localhost:8888/api/v1/person?page=1&size=4&direction=asc\"}"));
+    assertTrue(content.contains("\"prev\":{\"href\":\"http://localhost:8888/api/v1/person?direction=asc&page=0&size=4&sort=firstName,asc\"}"));
+    assertTrue(content.contains("\"first\":{\"href\":\"http://localhost:8888/api/v1/person?direction=asc&page=0&size=4&sort=firstName,asc\"}"));
+    
+    assertTrue(content.contains("\"page\":{\"size\":4,\"totalElements\":1003,\"totalPages\":251,\"number\":1}}"));
+  }
+
   private void mockPerson() {
     person.setFirstName("Allan");
     person.setLastName("Turin");
