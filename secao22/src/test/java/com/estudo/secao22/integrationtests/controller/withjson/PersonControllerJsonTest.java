@@ -395,7 +395,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     assertTrue(content.contains("\"prev\":{\"href\":\"http://localhost:8888/api/v1/person?direction=asc&page=0&size=4&sort=firstName,asc\"}"));
     assertTrue(content.contains("\"first\":{\"href\":\"http://localhost:8888/api/v1/person?direction=asc&page=0&size=4&sort=firstName,asc\"}"));
     
-    assertTrue(content.contains("\"page\":{\"size\":4,\"totalElements\":1003,\"totalPages\":251,\"number\":1}}"));
+    assertTrue(content.contains("\"page\":{\"size\":4,\"totalElements\":1004,\"totalPages\":251,\"number\":1}}"));
   }
 
   private void mockPerson() {
