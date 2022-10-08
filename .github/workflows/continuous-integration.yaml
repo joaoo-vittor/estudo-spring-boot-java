@@ -32,11 +32,12 @@ jobs:
 
     - name: Docker Compose Build
       working-directory: ./secao22
-      run: mvn clean package
+      run: docker-compose build
 
-    - name: Docker Compose Build
+    - name: Push to Docker Hub Container Registry
       run: |
         docker tag ${{ secrets.DOCKER_USERNAME }}/estudo-spring-boot:latest ${{ secrets.DOCKER_USERNAME }}/estudo-spring-boot:${{ github.run_id }}
         
         docker push ${{ secrets.DOCKER_USERNAME }}/estudo-spring-boot:${{ github.run_id }}
+        ocker push ${{ secrets.DOCKER_USERNAME }}/estudo-spring-boot:latest
     
