@@ -8,7 +8,7 @@ services:
     build: .
     environment:
       TZ: America/Sao_Paulo
-      SPRING.DATASOURCE.URL: jdbc:mysql://db:3306/estudo_spring?useTimezone=true&serverTimezone=UTC
+      SPRING.DATASOURCE.URL: jdbc:mysql://db:3306/estudo-spring?useTimezone=true&serverTimezone=UTC
       SPRING.DATASOURCE.USERNAME: root
       SPRING.DATASOURCE.PASSWORD: root
     command: mvn spring-boot:run
@@ -23,7 +23,7 @@ services:
     image: mysql:8.0.30
     restart: always
     environment: 
-      MYSQL_DATABASE: estudo_spring
+      MYSQL_DATABASE: estudo-spring
       MYSQL_ROOT_PASSWORD: root
     volumes: 
       - .dbdata:/var/lib/mysql
