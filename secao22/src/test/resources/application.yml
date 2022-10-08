@@ -3,7 +3,7 @@ cors:
 server:
   port: 8888
 file: 
-  upload-dir: /Users/joaovitor/Documents/estudo/estudo-java/uploadDir
+  upload-dir: /home/runner/work/estudo-spring-boot-java/uploadDir
 security:
   jwt: 
     token:
