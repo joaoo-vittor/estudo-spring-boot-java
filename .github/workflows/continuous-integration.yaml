@@ -39,5 +39,5 @@ jobs:
         docker tag ${{ secrets.DOCKER_USERNAME }}/estudo-spring-boot:latest ${{ secrets.DOCKER_USERNAME }}/estudo-spring-boot:${{ github.run_id }}
         
         docker push ${{ secrets.DOCKER_USERNAME }}/estudo-spring-boot:${{ github.run_id }}
-        ocker push ${{ secrets.DOCKER_USERNAME }}/estudo-spring-boot:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/estudo-spring-boot:latest
     
