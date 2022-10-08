@@ -3,7 +3,8 @@ cors:
 server:
   port: 8888
 file: 
-  upload-dir: /home/runner/work/estudo-spring-boot-java/estudo-spring-boot-java/secao22/target/surefire-reports/uploadDir
+  upload-dir: /home/runner/work/estudo-spring-boot-java/uploadDir
+  # upload-dir: /Users/joaovitor/Documents/estudo/estudo-java/uploadDir
 security:
   jwt: 
     token:
